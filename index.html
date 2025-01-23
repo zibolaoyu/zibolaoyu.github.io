@@ -69,9 +69,49 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-example-6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-example-7byjc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/21/example-6/" class="article-date">
+    <a href="/2025/01/23/example-7byjc/" class="article-date">
+  <time class="dt-published" datetime="2025-01-23T03:26:55.000Z" itemprop="datePublished">2025-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测（进行图书价格预测）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖与图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的紧凑表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。<br>因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。<br>本例中利用卷积核学习如何检测图像边缘。<br>卷积运算就是计算机认识图像的一种重要的数学计算，LeNet-5模型中卷积层中进行的主要就是卷积运算，可以把卷积核简单的类比为一个过滤器，拿这个过滤器在要检测的图像上滑一遍，图像中长的和卷积核像的特征就被记录了下来，用数学语言描述就是图像中模式和卷积核比较接近，卷积运算的结果值比较大，所以可以使用卷积运算对图片进行特征提取。如图2.2.3所示我们用两个卷积核就可以把图像竖直边缘和水平边缘提取出来，如下图所示：<br><img src="/./image/byjc/1.png" alt="如图1所示"><br>本例中用的是拉普拉斯算子（卷积核）如下所示<br><img src="/./image/byjc/2.png" alt="如图2所示"><br>改变例子中造型里的角色为juxing、yuanxing,运行其中的边缘检测代码，看能否检测出矩形圆形边框。咱们用到的3*3卷积核就是横着3个数、竖着3个数组成的一个数据组，高中数学你会学到，这样的数据组我们称为矩阵。把提取水平边缘特征和垂直边缘特征卷积核和我们读入的图片做卷积运算，就能把边框特征提取出来。。</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/byjc/byjc.xml">example-6</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm68o865f0008k0r59ss2gjd4" data-title="在snap中实现图像边缘检测（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-6xxhg" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/21/example-6xxhg/" class="article-date">
   <time class="dt-published" datetime="2025-01-21T03:26:55.000Z" itemprop="datePublished">2025-01-21</time>
 </a>
     
@@ -83,7 +123,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/21/example-6/">在snap中实现一元线性回归（进行图书价格预测）</a>
+      <a class="p-name article-title" href="/2025/01/21/example-6xxhg/">在snap中实现一元线性回归（进行图书价格预测）</a>
     </h1>
   
 
@@ -97,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6/" data-id="cm66hnndw00065kr50umq9w3t" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm68o865e0007k0r55n0b4k58" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -137,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm66hnndv00055kr50wniekjs" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm68o865d0006k0r58q5335mc" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -177,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm66hnndv00045kr52393dh8l" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm68o865c0005k0r50euka35j" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -217,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm66hnndu00035kr5c0x80elo" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm68o865b0004k0r5821ka1ay" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -268,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm66hnndy00085kr599nr0758" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm68o865g0009k0r587p46gwj" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -310,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/10/example-2/" data-id="cm66hnndr00025kr5ese5ensm" data-title="snap豆包大模型应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/10/example-2/" data-id="cm68o865a0003k0r5cbwj3q5x" data-title="snap豆包大模型应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -349,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/09/example-1/" data-id="cm66hnndn00015kr5axzw37r1" data-title="snap的第一个例子" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/09/example-1/" data-id="cm68o86580002k0r5e1aj3oia" data-title="snap的第一个例子" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -389,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/08/1blog/" data-id="cm66hnndx00075kr54q44a5dn" data-title="snap简介--构建你自己的块" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/08/1blog/" data-id="cm68o86550001k0r52lryc6bi" data-title="snap简介--构建你自己的块" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -432,7 +472,11 @@
       <ul>
         
           <li>
-            <a href="/2025/01/21/example-6/">在snap中实现一元线性回归（进行图书价格预测）</a>
+            <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测（进行图书价格预测）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/21/example-6xxhg/">在snap中实现一元线性回归（进行图书价格预测）</a>
           </li>
         
           <li>
@@ -445,10 +489,6 @@
         
           <li>
             <a href="/2025/01/16/example-3/">在snap中调用mediapipe的案例</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/15/hello-world/">Hello World</a>
           </li>
         
       </ul>
