@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>在snap中实现图像边缘检测（进行图书价格预测） | 淄博老于的博客</title>
+  <title>在snap中实现图像边缘检测 | 淄博老于的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖与图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的紧凑表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。本例中利用卷积核学">
+  <meta name="description" content="一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的抽象表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。本例中利用卷积核学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在snap中实现图像边缘检测（进行图书价格预测）">
+<meta property="og:title" content="在snap中实现图像边缘检测">
 <meta property="og:url" content="http://example.com/2025/01/23/example-7byjc/index.html">
 <meta property="og:site_name" content="淄博老于的博客">
-<meta property="og:description" content="一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖与图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的紧凑表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。本例中利用卷积核学">
+<meta property="og:description" content="一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的抽象表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。本例中利用卷积核学习">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/image/byjc/1.png">
 <meta property="og:image" content="http://example.com/image/byjc/2.png">
+<meta property="og:image" content="http://example.com/image/byjc/3.png">
 <meta property="article:published_time" content="2025-01-23T03:26:55.000Z">
-<meta property="article:modified_time" content="2025-01-23T01:43:50.420Z">
+<meta property="article:modified_time" content="2025-01-23T01:52:54.977Z">
 <meta property="article:author" content="zibolaoyu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image/byjc/1.png">
@@ -88,7 +89,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      在snap中实现图像边缘检测（进行图书价格预测）
+      在snap中实现图像边缘检测
     </h1>
   
 
@@ -96,13 +97,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖与图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的紧凑表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。<br>因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。<br>本例中利用卷积核学习如何检测图像边缘。<br>卷积运算就是计算机认识图像的一种重要的数学计算，LeNet-5模型中卷积层中进行的主要就是卷积运算，可以把卷积核简单的类比为一个过滤器，拿这个过滤器在要检测的图像上滑一遍，图像中长的和卷积核像的特征就被记录了下来，用数学语言描述就是图像中模式和卷积核比较接近，卷积运算的结果值比较大，所以可以使用卷积运算对图片进行特征提取。如图2.2.3所示我们用两个卷积核就可以把图像竖直边缘和水平边缘提取出来，如下图所示：<br><img src="/./image/byjc/1.png" alt="如图1所示"><br>本例中用的是拉普拉斯算子（卷积核）如下所示<br><img src="/./image/byjc/2.png" alt="如图2所示"><br>改变例子中造型里的角色为juxing、yuanxing,运行其中的边缘检测代码，看能否检测出矩形圆形边框。咱们用到的3*3卷积核就是横着3个数、竖着3个数组成的一个数据组，高中数学你会学到，这样的数据组我们称为矩阵。把提取水平边缘特征和垂直边缘特征卷积核和我们读入的图片做卷积运算，就能把边框特征提取出来。。</p>
-<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/byjc/byjc.xml">example-6</a></p>
+        <p>一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的抽象表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。<br>因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。<br>本例中利用卷积核学习如何检测图像边缘。<br>卷积运算就是计算机认识图像的一种重要的数学计算，LeNet-5模型中卷积层中进行的主要就是卷积运算，可以把卷积核简单的类比为一个过滤器，拿这个过滤器在要检测的图像上滑一遍，图像中长的和卷积核像的特征就被记录了下来，用数学语言描述就是图像中模式和卷积核比较接近，卷积运算的结果值比较大，所以可以使用卷积运算对图片进行特征提取。如图2.2.3所示我们用两个卷积核就可以把图像竖直边缘和水平边缘提取出来，如下图所示：<br><img src="/./image/byjc/1.png" alt="如图1所示"><br>本例中用的是拉普拉斯算子（卷积核）如下所示<br><img src="/./image/byjc/2.png" alt="如图2所示"><br>改变例子中造型里的角色为juxing、yuanxing,运行其中的边缘检测代码，看能否检测出矩形圆形边框。咱们用到的3*3卷积核就是横着3个数、竖着3个数组成的一个数据组，高中数学你会学到，这样的数据组我们称为矩阵。把提取水平边缘特征和垂直边缘特征卷积核和我们读入的图片做卷积运算，就能把边框特征提取出来。</p>
+<p>用snap！提供的卷积运算，实现边缘检测的代码如图所示：<br><img src="/./image/byjc/3.png" alt="如图3所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/byjc/byjc.xml">example-7</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm68o865f0008k0r59ss2gjd4" data-title="在snap中实现图像边缘检测（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm68xf76r0008r8r525mz278z" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -153,7 +155,7 @@
       <ul>
         
           <li>
-            <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测（进行图书价格预测）</a>
+            <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测</a>
           </li>
         
           <li>
