@@ -4,19 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>Hello World | 淄博老于的博客</title>
+  <title>用snap训练一个神经网络（NNnet） | 淄博老于的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。 如图所示为生成神经网络的代码： 用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2025/01/15/hello-world/index.html">
+<meta property="og:title" content="用snap训练一个神经网络（NNnet）">
+<meta property="og:url" content="http://example.com/2025/01/27/example-9NNnet/index.html">
 <meta property="og:site_name" content="淄博老于的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。 如图所示为生成神经网络的代码： 用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-01-15T13:29:36.750Z">
-<meta property="article:modified_time" content="2025-01-13T02:08:56.425Z">
+<meta property="og:image" content="http://example.com/image/NNnet/1.png">
+<meta property="og:image" content="http://example.com/image/NNnet/2.png">
+<meta property="article:published_time" content="2025-01-27T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-01-26T02:13:30.698Z">
 <meta property="article:author" content="zibolaoyu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/NNnet/1.png">
   
     <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
   
@@ -71,10 +74,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-example-9NNnet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/15/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-01-15T13:29:36.750Z" itemprop="datePublished">2025-01-15</time>
+    <a href="/2025/01/27/example-9NNnet/" class="article-date">
+  <time class="dt-published" datetime="2025-01-27T03:26:55.000Z" itemprop="datePublished">2025-01-27</time>
 </a>
     
   </div>
@@ -85,7 +88,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Hello World
+      用snap训练一个神经网络（NNnet）
     </h1>
   
 
@@ -93,24 +96,15 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。</p>
+<p>如图所示为生成神经网络的代码：<br><img src="/./image/NNnet/1.png" alt="如图1所示"></p>
+<p>用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：<br><img src="/./image/NNnet/2.png" alt="如图2所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/NNnet/NNnet.xml">example-8</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6czk9in000amgr5f37ue07r" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6czk9im0009mgr52n6wb98q" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -120,19 +114,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2025/01/16/example-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          在snap中调用mediapipe的案例
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/01/10/example-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2025/01/25/example-8gzj/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">snap豆包大模型应用</div>
+      <div class="article-nav-title">用snap中实现感知机（perceptron）</div>
     </a>
   
 </nav>
