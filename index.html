@@ -69,6 +69,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-example-10bzsb" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/31/example-10bzsb/" class="article-date">
+  <time class="dt-published" datetime="2025-01-31T03:26:55.000Z" itemprop="datePublished">2025-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>我们希望训练一个神经网络（NN）来识别12种不同的交通标志。为此，我们在网络中寻找这些交通标志的图像，并将其缩小到100×100像素的格式。现在这些图像可以在屏幕上很好地显示，但10000个像素当然作为神经网络的输入来说是太多了。<br>为了将数据量控制在可接受的范围内，我们通过均值池化（mean-pooling）将像素缩减为2×2的格式，即我们对图像的每个四分之一区域中的彩色像素取平均值。因此，交通标志图像的30,000个像素值被缩减为12个值。<br>首先，Gundolf给神经网络（NN）精灵换了一个新造型。然后，他在NN中为一个新的网络（这里是一个12×1的网络）创建了权重。接着，他用一个（目前还毫无意义的）输入让网络进行绘图。之后，他将NN发送到屏幕上方中心的一个精心选择的位置，并对下方的交通标志做同样的操作。最后，他将一些变量设置为0。我们稍后会用到它们。<br>Gundolf 首先需要通过池化操作来减少图像值的数量。为了应用这一操作，他必须导入图像数据。然后，他可以对这些数据进行转换，删除列表前面指定的缩减后图像的维度，并返回结果。我们将所有这些操作总结在一个新的模块“当前交通标志造型的池化”中<br>如图所示为平均值池化操作的代码：<br><img src="/./image/bzsb/1.png" alt="如图1所示"><br>Gundolf将降采样图像的颜色值组装成一个输入向量。这些值通过数据工具中的softmax函数进行建模，以排除不利的输入值<br><img src="/./image/bzsb/2.png" alt="如图2所示"><br>相应地，训练数据中的训练向量可以通过神经网络（NN）搜索到的输出值来确定。在我们的情况下，所有值都应该是0，除了与交通标志服装编号相对应的那个值。<br><img src="/./image/bzsb/3.png" alt="如图3所示"><br>神经网络（NN）引入了两种新方法：从……学习和用……测试。在学习过程中，会确定神经网络输出值最大的位置，并将其与交通标志的当前服装编号进行比较。如果这些值不匹配，则继续学习。<br><img src="/./image/bzsb/4.png" alt="如图4所示"></p>
+<p>一个训练操作包括确定一个随机的服装编号以及相应的服装更换。然后，神经网络（NN）的学习过程会用新的输入数据和目标数据开始。训练的次数会被计数。如图所示：<br><img src="/./image/bzsb/5.png" alt="如图5所示"></p>
+<p>在测试中，采用类似的程序：更换服装并检查神经网络是否计算出正确的服装编号。如果情况如此，那么所有人都会感到满意。最终会确定正确尝试的百分比。<br><img src="/./image/bzsb/6.png" alt="如图6所示"><br>经过几百次训练运行，先是使用较高的学习率，然后再次使用较低的学习率进行微调，我们实现了高达100%的识别率。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/bzsb/bzsb.xml">example-9</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6kf9vnb0003ror572hzht8n" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-example-9NNnet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/27/example-9NNnet/" class="article-date">
@@ -94,12 +135,12 @@
         <p>生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。</p>
 <p>如图所示为生成神经网络的代码：<br><img src="/./image/NNnet/1.png" alt="如图1所示"></p>
 <p>用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：<br><img src="/./image/NNnet/2.png" alt="如图2所示"></p>
-<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/NNnet/NNnet.xml">example-8</a></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/NNnet/NNnet.xml">example-9</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6czk9im0009mgr52n6wb98q" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6kf9vnj000bror54emv83h4" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -140,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6czk9ik0008mgr5b8dsfnwt" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6kf9vng0009ror5bp4zatgp" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -181,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6czk9ij0006mgr520d9hs6y" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6kf9vnh000aror5bxwj2zmp" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -221,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6czk9ik0007mgr5av8xggj0" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6kf9vnf0008ror579rscbd9" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -261,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6czk9ii0005mgr5hit02w4t" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6kf9vne0006ror509gw4wpu" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -301,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6czk9ih0003mgr5etbeacj2" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6kf9vne0007ror5dazd3xbb" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -341,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6czk9ih0004mgr50rc4fy5k" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6kf9vnd0005ror5hgd507no" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -392,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6czk9in000amgr5f37ue07r" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6kf9vnk000cror5bv40etb5" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -434,46 +475,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/10/example-2/" data-id="cm6czk9io000bmgr5d0t2gcf7" data-title="snap豆包大模型应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-example-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/09/example-1/" class="article-date">
-  <time class="dt-published" datetime="2025-01-09T06:08:14.000Z" itemprop="datePublished">2025-01-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/09/example-1/">snap的第一个例子</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>##snap例子—锚点<br>Snap！中锚点的例子可以帮助你熟悉程序界面，同时又能体验与scratch的不同之处。<br>演示案例1: <a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/s-e-m/s-e-m.xml">example-1</a><br>代码截图：<br><img src="/./image/s-e-m/1.png" alt="exampledm"><br>角色设置如图所示：<br><img src="/./image/s-e-m/2.png" alt="example-t"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/09/example-1/" data-id="cm6czk9ic0001mgr52emh8788" data-title="snap的第一个例子" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/10/example-2/" data-id="cm6kf9vnc0004ror5685qgoye" data-title="snap豆包大模型应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -521,6 +523,10 @@
       <ul>
         
           <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+          <li>
             <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
           </li>
         
@@ -534,10 +540,6 @@
         
           <li>
             <a href="/2025/01/21/example-6xxhg/">在snap中实现一元线性回归（进行图书价格预测）</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/18/example-5/">在snap中调用mediapipe手部检测的案例（5）</a>
           </li>
         
       </ul>
