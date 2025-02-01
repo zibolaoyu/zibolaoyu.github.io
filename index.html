@@ -69,6 +69,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-example-11gqnh" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/01/example-11gqnh/" class="article-date">
+  <time class="dt-published" datetime="2025-02-01T03:26:55.000Z" itemprop="datePublished">2025-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>机器学习使用训练数据来调整函数的参数，以便能够很好地预测其他值（如果一切顺利的话）。因此，你构建了一个预测工具，一种数据的“望远镜”。<br>人们可能会认为，一个函数包含的可定制参数越多就越好。但事实并非如此。一方面，更多的参数需要更多的训练数据和训练运行次数，即更长的学习时间；另一方面，一个“不合适的”参数数量也可能阻碍“良好”的解决方案。我们分别举一个例子来说明这两个方面。<br>关于第一点：在用于交通标志识别的神经网络（最后一个例子）中，我们使用一层网络就取得了非常好的结果。如果我们增加网络层数，同时保持训练运行次数不变，那么识别率会急剧下降。<br>关于第二点：如果函数能够很好地复现训练数据，这并不意味着它对其他数据也能做到这一点。这在很大程度上取决于生成的函数类型。我们以多项式插值为例进行说明。<br>任务是：通过训练数据来调整多项式的系数，以便尽可能好地预测其他数据。<br>为了做到这一点，我们需要生成用于计算插值多项式的数据。这次，这项任务是由Hilberto完成的。他生成的数据围绕抛物线 0.2*x2−3 散布。<br>我们在Hilberto旁边配置了一个名为PlotPad的第二个精灵，并在上面绘制数据。<br>我们选择PlotPad作为“工作主力”。如有必要，我们会从其他库中导入所需的功能。<br>如图所示为PlotPad的代码：<br><img src="/./image/110gqnh/1.png" alt="如图1所示"></p>
+<p>生成数据展示。<br><img src="/./image/110gqnh/2.png" alt="如图1所示"></p>
+<p>我们首先尝试使用线性回归进行拟合。<br><img src="/./image/110gqnh/3.png" alt="如图3所示"><br>这看起来确实相当不错，但它在两侧并没有很好地拟合。</p>
+<p>因此，我们尝试使用多项式插值。首先，我们从训练数据中随机选择三对数据，确定插值多项式并将其绘制出来。因为我们想进一步进行实验，所以我们将解决方案推广到通过n个点的多项式。<br><img src="/./image/110gqnh/4.png" alt="如图4所示"></p>
+<p>结果取决于捕捉到哪些点。这里有一个不好的结果和一个相当好的结果。<br><img src="/./image/110gqnh/5.png" alt="如图5所示"></p>
+<p>现在我们变得大胆起来了！我们不再选择三个点，而是选择了五个点。毕竟，我们想要做好这件事！在中间部分，效果还算可以，但随后——哎呀！如图所示：<br><img src="/./image/110gqnh/6.png" alt="如图6所示"></p>
+<p>也许我们只需要使用更多的点。让我们试试10个点。多项式确实经过了更多的点，但它们在边缘“起飞”了。<br><img src="/./image/110gqnh/7.png" alt="如图7所示"><br>好吧，那就用所有的点吧！<br>你可以看到，随着多项式次数的增加，图上直接有更多训练数据的点，但在这些点之间，多项式的剧烈振荡只会“预测”出毫无意义的值。<br><img src="/./image/110gqnh/8.png" alt="如图8所示"><br>因此，我们所学到的质量在很大程度上取决于我们如何处理偏差。我们必须决定哪些细节上的不准确是可以容忍的，以便使整体预测变得可靠。如果多项式的次数太小，我们称之为欠拟合；如果次数太高，则称为过拟合。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/11gqnh/gqnh.xml">example-11</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6ll7szy000408r5fw3g9o36" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-example-10bzsb" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/31/example-10bzsb/" class="article-date">
@@ -91,14 +136,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>我们希望训练一个神经网络（NN）来识别12种不同的交通标志。为此，我们在网络中寻找这些交通标志的图像，并将其缩小到100×100像素的格式。现在这些图像可以在屏幕上很好地显示，但10000个像素当然作为神经网络的输入来说是太多了。<br>为了将数据量控制在可接受的范围内，我们通过均值池化（mean-pooling）将像素缩减为2×2的格式，即我们对图像的每个四分之一区域中的彩色像素取平均值。因此，交通标志图像的30,000个像素值被缩减为12个值。<br>首先，Gundolf给神经网络（NN）精灵换了一个新造型。然后，他在NN中为一个新的网络（这里是一个12×1的网络）创建了权重。接着，他用一个（目前还毫无意义的）输入让网络进行绘图。之后，他将NN发送到屏幕上方中心的一个精心选择的位置，并对下方的交通标志做同样的操作。最后，他将一些变量设置为0。我们稍后会用到它们。<br>Gundolf 首先需要通过池化操作来减少图像值的数量。为了应用这一操作，他必须导入图像数据。然后，他可以对这些数据进行转换，删除列表前面指定的缩减后图像的维度，并返回结果。我们将所有这些操作总结在一个新的模块“当前交通标志造型的池化”中<br>如图所示为平均值池化操作的代码：<br><img src="/./image/bzsb/1.png" alt="如图1所示"><br>Gundolf将降采样图像的颜色值组装成一个输入向量。这些值通过数据工具中的softmax函数进行建模，以排除不利的输入值<br><img src="/./image/bzsb/2.png" alt="如图2所示"><br>相应地，训练数据中的训练向量可以通过神经网络（NN）搜索到的输出值来确定。在我们的情况下，所有值都应该是0，除了与交通标志服装编号相对应的那个值。<br><img src="/./image/bzsb/3.png" alt="如图3所示"><br>神经网络（NN）引入了两种新方法：从……学习和用……测试。在学习过程中，会确定神经网络输出值最大的位置，并将其与交通标志的当前服装编号进行比较。如果这些值不匹配，则继续学习。<br><img src="/./image/bzsb/4.png" alt="如图4所示"></p>
-<p>一个训练操作包括确定一个随机的服装编号以及相应的服装更换。然后，神经网络（NN）的学习过程会用新的输入数据和目标数据开始。训练的次数会被计数。如图所示：<br><img src="/./image/bzsb/5.png" alt="如图5所示"></p>
-<p>在测试中，采用类似的程序：更换服装并检查神经网络是否计算出正确的服装编号。如果情况如此，那么所有人都会感到满意。最终会确定正确尝试的百分比。<br><img src="/./image/bzsb/6.png" alt="如图6所示"><br>经过几百次训练运行，先是使用较高的学习率，然后再次使用较低的学习率进行微调，我们实现了高达100%的识别率。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/bzsb/bzsb.xml">example-10</a></p>
+        <p>我们希望训练一个神经网络（NN）来识别12种不同的交通标志。为此，我们在网络中寻找这些交通标志的图像，并将其缩小到100×100像素的格式。现在这些图像可以在屏幕上很好地显示，但10000个像素当然作为神经网络的输入来说是太多了。<br>为了将数据量控制在可接受的范围内，我们通过均值池化（mean-pooling）将像素缩减为2×2的格式，即我们对图像的每个四分之一区域中的彩色像素取平均值。因此，交通标志图像的30,000个像素值被缩减为12个值。<br>首先，Gundolf给神经网络（NN）精灵换了一个新造型。然后，他在NN中为一个新的网络（这里是一个12×1的网络）创建了权重。接着，他用一个（目前还毫无意义的）输入让网络进行绘图。之后，他将NN发送到屏幕上方中心的一个精心选择的位置，并对下方的交通标志做同样的操作。最后，他将一些变量设置为0。我们稍后会用到它们。<br>Gundolf 首先需要通过池化操作来减少图像值的数量。为了应用这一操作，他必须导入图像数据。然后，他可以对这些数据进行转换，删除列表前面指定的缩减后图像的维度，并返回结果。我们将所有这些操作总结在一个新的模块“当前交通标志造型的池化”中<br>如图所示为平均值池化操作的代码：<br><img src="/./image/10bzsb/1.png" alt="如图1所示"><br>Gundolf将降采样图像的颜色值组装成一个输入向量。这些值通过数据工具中的softmax函数进行建模，以排除不利的输入值<br><img src="/./image/10bzsb/2.png" alt="如图2所示"><br>相应地，训练数据中的训练向量可以通过神经网络（NN）搜索到的输出值来确定。在我们的情况下，所有值都应该是0，除了与交通标志服装编号相对应的那个值。<br><img src="/./image/10bzsb/3.png" alt="如图3所示"><br>神经网络（NN）引入了两种新方法：从……学习和用……测试。在学习过程中，会确定神经网络输出值最大的位置，并将其与交通标志的当前服装编号进行比较。如果这些值不匹配，则继续学习。<br><img src="/./image/10bzsb/4.png" alt="如图4所示"></p>
+<p>一个训练操作包括确定一个随机的服装编号以及相应的服装更换。然后，神经网络（NN）的学习过程会用新的输入数据和目标数据开始。训练的次数会被计数。如图所示：<br><img src="/./image/10bzsb/5.png" alt="如图5所示"></p>
+<p>在测试中，采用类似的程序：更换服装并检查神经网络是否计算出正确的服装编号。如果情况如此，那么所有人都会感到满意。最终会确定正确尝试的百分比。<br><img src="/./image/10bzsb/6.png" alt="如图6所示"><br>经过几百次训练运行，先是使用较高的学习率，然后再次使用较低的学习率进行微调，我们实现了高达100%的识别率。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/10bzsb/bzsb.xml">example-10</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6kii63f0003c0r5gip6bljo" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6ll7szx000308r5freaaca7" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -141,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6kii63l000bc0r57kcjbax9" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6ll7t05000c08r5085vg4qh" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -182,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6kii63j0009c0r5gv1h2rzq" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6ll7t04000b08r577gj9gbe" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -223,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6kii63i0008c0r50c2k3f96" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6ll7t03000a08r53qjt6i6w" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -263,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6kii63h0007c0r50lweczx1" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6ll7t02000908r5auczd3no" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -303,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6kii63h0006c0r55834gyzm" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6ll7t00000708r568jcdr9f" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -343,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6kii63k000ac0r57mib39a5" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6ll7t01000808r509n7c1f1" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -383,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6kii63g0005c0r57p5b5pno" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6ll7t00000608r54ut25mqu" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -434,49 +479,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6kii63m000cc0r52dgp4xxv" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-example-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/10/example-2/" class="article-date">
-  <time class="dt-published" datetime="2025-01-10T06:08:14.000Z" itemprop="datePublished">2025-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/10/example-2/">snap豆包大模型应用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="snap例子—豆包大模型应用"><a href="#snap例子—豆包大模型应用" class="headerlink" title="snap例子—豆包大模型应用"></a>snap例子—豆包大模型应用</h2><p>本文参考种瓜的豆包大模型应用(<a target="_blank" rel="noopener" href="https://wwj718.github.io/">https://wwj718.github.io</a>).<br>尝试在Snap！调用豆包大模型，体验生成式AI的应用。这个实验是用国内的snap平台(<a target="_blank" rel="noopener" href="https://snap.codelab.club/">https://snap.codelab.club</a>) 完成，需要添加豆包库，如图所示：<br><img src="/./image/doubao/1.png" alt="example-jt1"><br>完成后，豆包主要增加了两个积木提供的功能分别是:<br>对话(支持图像理解)<br>文生图(从文字生成图像)<br><img src="/./image/doubao/2.png" alt="example-jt2"><br>需要用到以下两种豆包大模型(字节跳动在模型广场提供了非常多的的大模型):</p>
-<p><a target="_blank" rel="noopener" href="https://console.volcengine.com/ark/region:ark+cn-beijing/model/detail?Id=doubao-vision-pro-32k">Doubao-vision-pro 32k</a><br><a target="_blank" rel="noopener" href="https://console.volcengine.com/ark/region:ark+cn-beijing/model/detail?Id=doubao-t2i-drawing">Doubao-文生图模型(智能绘图)</a></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>推荐张老师录制的这个<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wpkVY9Ekk/">教学视频</a></p>
-<p>你可以从这个例子开始<br>演示案例1: <a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/doubao/doubao-demo.xml">example-1</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/10/example-2/" data-id="cm6kii63f0004c0r53cwz8cc8" data-title="snap豆包大模型应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6ll7t06000d08r5fa66exx5" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -511,7 +514,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
     </div>
   </div>
 
@@ -522,6 +525,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
         
           <li>
             <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
@@ -537,10 +544,6 @@
         
           <li>
             <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/21/example-6xxhg/">在snap中实现一元线性回归（进行图书价格预测）</a>
           </li>
         
       </ul>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>模型训练中的过拟合和欠拟合 | 淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="机器学习使用训练数据来调整函数的参数，以便能够很好地预测其他值（如果一切顺利的话）。因此，你构建了一个预测工具，一种数据的“望远镜”。人们可能会认为，一个函数包含的可定制参数越多就越好。但事实并非如此。一方面，更多的参数需要更多的训练数据和训练运行次数，即更长的学习时间；另一方面，一个“不合适的”参数数量也可能阻碍“良好”的解决方案。我们分别举一个例子来说明这两个方面。关于第一点：在用于交通标志识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型训练中的过拟合和欠拟合">
+<meta property="og:url" content="http://example.com/2025/02/01/example-11gqnh/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:description" content="机器学习使用训练数据来调整函数的参数，以便能够很好地预测其他值（如果一切顺利的话）。因此，你构建了一个预测工具，一种数据的“望远镜”。人们可能会认为，一个函数包含的可定制参数越多就越好。但事实并非如此。一方面，更多的参数需要更多的训练数据和训练运行次数，即更长的学习时间；另一方面，一个“不合适的”参数数量也可能阻碍“良好”的解决方案。我们分别举一个例子来说明这两个方面。关于第一点：在用于交通标志识">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/110gqnh/1.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/2.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/3.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/4.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/5.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/6.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/7.png">
+<meta property="og:image" content="http://example.com/image/110gqnh/8.png">
+<meta property="article:published_time" content="2025-02-01T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-02-01T02:41:45.503Z">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/110gqnh/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-example-11gqnh" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/01/example-11gqnh/" class="article-date">
+  <time class="dt-published" datetime="2025-02-01T03:26:55.000Z" itemprop="datePublished">2025-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      模型训练中的过拟合和欠拟合
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>机器学习使用训练数据来调整函数的参数，以便能够很好地预测其他值（如果一切顺利的话）。因此，你构建了一个预测工具，一种数据的“望远镜”。<br>人们可能会认为，一个函数包含的可定制参数越多就越好。但事实并非如此。一方面，更多的参数需要更多的训练数据和训练运行次数，即更长的学习时间；另一方面，一个“不合适的”参数数量也可能阻碍“良好”的解决方案。我们分别举一个例子来说明这两个方面。<br>关于第一点：在用于交通标志识别的神经网络（最后一个例子）中，我们使用一层网络就取得了非常好的结果。如果我们增加网络层数，同时保持训练运行次数不变，那么识别率会急剧下降。<br>关于第二点：如果函数能够很好地复现训练数据，这并不意味着它对其他数据也能做到这一点。这在很大程度上取决于生成的函数类型。我们以多项式插值为例进行说明。<br>任务是：通过训练数据来调整多项式的系数，以便尽可能好地预测其他数据。<br>为了做到这一点，我们需要生成用于计算插值多项式的数据。这次，这项任务是由Hilberto完成的。他生成的数据围绕抛物线 0.2*x2−3 散布。<br>我们在Hilberto旁边配置了一个名为PlotPad的第二个精灵，并在上面绘制数据。<br>我们选择PlotPad作为“工作主力”。如有必要，我们会从其他库中导入所需的功能。<br>如图所示为PlotPad的代码：<br><img src="/./image/110gqnh/1.png" alt="如图1所示"></p>
+<p>生成数据展示。<br><img src="/./image/110gqnh/2.png" alt="如图1所示"></p>
+<p>我们首先尝试使用线性回归进行拟合。<br><img src="/./image/110gqnh/3.png" alt="如图3所示"><br>这看起来确实相当不错，但它在两侧并没有很好地拟合。</p>
+<p>因此，我们尝试使用多项式插值。首先，我们从训练数据中随机选择三对数据，确定插值多项式并将其绘制出来。因为我们想进一步进行实验，所以我们将解决方案推广到通过n个点的多项式。<br><img src="/./image/110gqnh/4.png" alt="如图4所示"></p>
+<p>结果取决于捕捉到哪些点。这里有一个不好的结果和一个相当好的结果。<br><img src="/./image/110gqnh/5.png" alt="如图5所示"></p>
+<p>现在我们变得大胆起来了！我们不再选择三个点，而是选择了五个点。毕竟，我们想要做好这件事！在中间部分，效果还算可以，但随后——哎呀！如图所示：<br><img src="/./image/110gqnh/6.png" alt="如图6所示"></p>
+<p>也许我们只需要使用更多的点。让我们试试10个点。多项式确实经过了更多的点，但它们在边缘“起飞”了。<br><img src="/./image/110gqnh/7.png" alt="如图7所示"><br>好吧，那就用所有的点吧！<br>你可以看到，随着多项式次数的增加，图上直接有更多训练数据的点，但在这些点之间，多项式的剧烈振荡只会“预测”出毫无意义的值。<br><img src="/./image/110gqnh/8.png" alt="如图8所示"><br>因此，我们所学到的质量在很大程度上取决于我们如何处理偏差。我们必须决定哪些细节上的不准确是可以容忍的，以便使整体预测变得可靠。如果多项式的次数太小，我们称之为欠拟合；如果次数太高，则称为过拟合。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/11gqnh/gqnh.xml">example-11</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6ll7szy000408r5fw3g9o36" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/01/31/example-10bzsb/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用snap实现一个交通标志识别的神经网络</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/25/example-8gzj/">用snap中实现感知机（perceptron）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
