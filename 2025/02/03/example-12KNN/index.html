@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>用KNN算法进行赫罗图分类 | 淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在赫罗图（详见维基百科）中，恒星的光度被绘制在其恒星分类之上。结果呈现出一条从左上到右下的线，即“主序带”。在这条线上，像太阳这样的恒星占据主导地位。在主序带的右上方，我们可以找到红巨星，而在主序带的左下方则是白矮星。我们希望使用最近邻（kNN）方法在该图中对新恒星进行分类：我们生成一组训练数据，其中包含恒星的坐标（在图中简单地表示为图像坐标）及其类型。如果我们要对一颗新恒星进行分类，我们会确定它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用KNN算法进行赫罗图分类">
+<meta property="og:url" content="http://example.com/2025/02/03/example-12KNN/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:description" content="在赫罗图（详见维基百科）中，恒星的光度被绘制在其恒星分类之上。结果呈现出一条从左上到右下的线，即“主序带”。在这条线上，像太阳这样的恒星占据主导地位。在主序带的右上方，我们可以找到红巨星，而在主序带的左下方则是白矮星。我们希望使用最近邻（kNN）方法在该图中对新恒星进行分类：我们生成一组训练数据，其中包含恒星的坐标（在图中简单地表示为图像坐标）及其类型。如果我们要对一颗新恒星进行分类，我们会确定它">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/120KNN/1.png">
+<meta property="og:image" content="http://example.com/image/120KNN/2.png">
+<meta property="og:image" content="http://example.com/image/120KNN/3.png">
+<meta property="article:published_time" content="2025-02-03T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-02-04T01:05:08.061Z">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/120KNN/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-example-12KNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/03/example-12KNN/" class="article-date">
+  <time class="dt-published" datetime="2025-02-03T03:26:55.000Z" itemprop="datePublished">2025-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      用KNN算法进行赫罗图分类
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在赫罗图（详见维基百科）中，恒星的光度被绘制在其恒星分类之上。结果呈现出一条从左上到右下的线，即“主序带”。在这条线上，像太阳这样的恒星占据主导地位。在主序带的右上方，我们可以找到红巨星，而在主序带的左下方则是白矮星。<br><img src="/./image/120KNN/1.png" alt="如图1所示"><br>我们希望使用最近邻（kNN）方法在该图中对新恒星进行分类：我们生成一组训练数据，其中包含恒星的坐标（在图中简单地表示为图像坐标）及其类型。如果我们要对一颗新恒星进行分类，我们会确定它在图中的位置，并找到最近的k个（例如k&#x3D;5）邻居。然后，我们确定这个列表中出现频率最高的恒星类型，并将其分配给这颗新恒星。</p>
+<p>首先，我们需要一张赫罗图（[HR]）的图像。我们将这张图像导入到Snap!中，作为图像画布（ImagePad）的一个造型，并从中生成所需的训练数据。由于我们将在图像上进行绘制，因此我们使用赫罗图的一个副本进行操作，以免改变原始图像。<br>我们通过指定一种恒星类型，然后在图表上点击一些与该类型对应的点来获取训练数据。之后，我们可以通过点击并标记这些新恒星来对它们进行分类。<br>如图所示为代码：<br><img src="/./image/120KNN/2.png" alt="如图2所示"><br>我们为显示设置了一些属性，并在恒星的位置绘制了一个圆圈。然后，我们确定了五个最近的邻居及其类型的出现次数。接下来，我们删除了标题，并将列表按降序排序。新恒星的类型是列表中第一行的第一个元素。我们将这个类型写在恒星旁边。<br><img src="/./image/120KNN/3.png" alt="如图3所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/12KNN/KNN.xml">example-12</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/03/example-12KNN/" data-id="cm6ps2qxr0005jsr59xuoevs4" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/02/01/example-11gqnh/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">模型训练中的过拟合和欠拟合</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/03/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/25/example-8gzj/">用snap中实现感知机（perceptron）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

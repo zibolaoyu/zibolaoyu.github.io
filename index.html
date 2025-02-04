@@ -69,6 +69,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-example-12KNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/03/example-12KNN/" class="article-date">
+  <time class="dt-published" datetime="2025-02-03T03:26:55.000Z" itemprop="datePublished">2025-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/03/example-12KNN/">用KNN算法进行赫罗图分类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在赫罗图（详见维基百科）中，恒星的光度被绘制在其恒星分类之上。结果呈现出一条从左上到右下的线，即“主序带”。在这条线上，像太阳这样的恒星占据主导地位。在主序带的右上方，我们可以找到红巨星，而在主序带的左下方则是白矮星。<br><img src="/./image/120KNN/1.png" alt="如图1所示"><br>我们希望使用最近邻（kNN）方法在该图中对新恒星进行分类：我们生成一组训练数据，其中包含恒星的坐标（在图中简单地表示为图像坐标）及其类型。如果我们要对一颗新恒星进行分类，我们会确定它在图中的位置，并找到最近的k个（例如k&#x3D;5）邻居。然后，我们确定这个列表中出现频率最高的恒星类型，并将其分配给这颗新恒星。</p>
+<p>首先，我们需要一张赫罗图（[HR]）的图像。我们将这张图像导入到Snap!中，作为图像画布（ImagePad）的一个造型，并从中生成所需的训练数据。由于我们将在图像上进行绘制，因此我们使用赫罗图的一个副本进行操作，以免改变原始图像。<br>我们通过指定一种恒星类型，然后在图表上点击一些与该类型对应的点来获取训练数据。之后，我们可以通过点击并标记这些新恒星来对它们进行分类。<br>如图所示为代码：<br><img src="/./image/120KNN/2.png" alt="如图2所示"><br>我们为显示设置了一些属性，并在恒星的位置绘制了一个圆圈。然后，我们确定了五个最近的邻居及其类型的出现次数。接下来，我们删除了标题，并将列表按降序排序。新恒星的类型是列表中第一行的第一个元素。我们将这个类型写在恒星旁边。<br><img src="/./image/120KNN/3.png" alt="如图3所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/12KNN/KNN.xml">example-12</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/03/example-12KNN/" data-id="cm6ps2qxr0005jsr59xuoevs4" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-example-11gqnh" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/01/example-11gqnh/" class="article-date">
@@ -102,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6ll7szy000408r5fw3g9o36" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6ps2qxq0004jsr5ce2vf535" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -143,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6ll7szx000308r5freaaca7" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6ps2qxo0002jsr59ioi5rrw" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -186,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6ll7t05000c08r5085vg4qh" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6ps2qxy000djsr56741fups" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -227,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6ll7t04000b08r577gj9gbe" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6ps2qxx000cjsr5f1vfcjhe" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -268,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6ll7t03000a08r53qjt6i6w" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6ps2qxw000bjsr546co00ft" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -308,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6ll7t02000908r5auczd3no" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6ps2qxv000ajsr59q7m5eqa" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -348,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6ll7t00000708r568jcdr9f" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6ps2qxu0009jsr5hanwgaua" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -388,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6ll7t01000808r509n7c1f1" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6ps2qxt0008jsr5ahmp5lbw" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -428,58 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6ll7t00000608r54ut25mqu" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/15/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-01-15T13:29:36.750Z" itemprop="datePublished">2025-01-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/15/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/15/hello-world/" data-id="cm6ll7t06000d08r5fa66exx5" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6ps2qxs0006jsr50qfb2kkq" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -527,6 +517,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/03/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
           </li>
         
@@ -540,10 +534,6 @@
         
           <li>
             <a href="/2025/01/25/example-8gzj/">用snap中实现感知机（perceptron）</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测</a>
           </li>
         
       </ul>
