@@ -69,6 +69,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-example-13bayes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/06/example-13bayes/" class="article-date">
+  <time class="dt-published" datetime="2025-02-06T03:26:55.000Z" itemprop="datePublished">2025-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>该方法会在事先创建了适合此类分类的训练数据的情况下，将文本分配到一个类别中。在最简单的情况下，它只区分两个类别：文本属于一个类别或不属于该类别。对于这两种情况都会计算一个概率。标准示例是垃圾邮件检测：系统接收一份已知的垃圾邮件列表和第二份“真实”邮件列表。根据这些，按照托马斯•贝叶斯的方法为所有单词计算条件概率，而不考虑它们在文本中的位置（因此称为“朴素分类”），然后根据公式计算出被分析文本的总体概率。</p>
+<p>我们为“垃圾邮件”和“非垃圾邮件”两个类别实现了这一程序，即我们估算文本是否属于垃圾邮件。我们以垃圾邮件检测为例，因为它非常简单。我们将文本存储在两个变量中。分类所需的训练数据必须从这些变量中生成。这在“准备数据……”模块中完成。<br><img src="/./image/130bayes/1.jpeg" alt="如图1所示"><br>首先，我们计算两个类别——垃圾邮件和非垃圾邮件的概率，这两个类别在模块中分别被列为类别1和类别2<br>如图所示为代码：<br><img src="/./image/130bayes/2.jpeg" alt="如图2所示"><br>然后，我们将两个类别的文本分别合并成一个文本，因为从现在开始，只有单词的数量才是重要的。我们将这些文本简化为仅由大写字母组成的纯单词序列，因为它们在文本中的位置，以及标点符号，都不再重要<br><img src="/./image/130bayes/3.jpeg" alt="如图3所示"><br>让我们来统计这两段文本的单词数量，并在过程中删除空白条目<br><img src="/./image/130bayes/4.jpeg" alt="如图4所示"><br>由于在统计单词时已经对它们进行了排序，因此第一列包含了两个类别的词汇表。从这里，我们整理出总的词汇表，并记住它们的长度，因为我们在估计条件概率时需要用到这些长度。<br><img src="/./image/130bayes/5.jpeg" alt="如图5所示"><br>两个类别的条件概率是通过它们的相对频率来计算的。因为那些在待分类文本的词汇表中未出现的单词会导致概率为0，从而使得整体结果也为0，因此我们还使用了拉普拉斯平滑来避免出现零值：我们在分子中加1，在分母中加上总词汇表的长度。这样，缺失的单词就会被赋予概率1&#x2F;（总词汇表长度 + 类别词汇表长度）。<br><img src="/./image/130bayes/6.jpeg" alt="如图6所示"><br>最后，用于分类所需的数据被整理成一个列表，并作为结果进行传递。<br><img src="/./image/130bayes/7.jpeg" alt="如图7所示"><br>使用“朴素贝叶斯分类……”模块，我们现在可以尝试识别垃圾邮件了。我们将新的文本重新拆分成单词列表，并利用准备好的训练数据来实现指定的公式。最终结果包括垃圾邮件（spam）和非垃圾邮件（ham）的概率。<br><img src="/./image/130bayes/8.jpeg" alt="如图8所示"><br>现在，让我们将文本“We want to pay out your winnings! Please enter your account details.”与准备好的训练数据一起输入到模块中，然后我们得到垃圾邮件的概率为93%。<br><img src="/./image/130bayes/9.jpeg" alt="如图9所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/13Bayes/Bayes.xml">example-13</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/06/example-13bayes/" data-id="cm6srf0xy00050sr500bd25gm" data-title="文本的朴素贝叶斯分类(naves bayes)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-example-12KNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/04/example-12KNN/" class="article-date">
@@ -98,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/04/example-12KNN/" data-id="cm6q6grpc00053gr55dwj9i2j" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/04/example-12KNN/" data-id="cm6srf0xz00070sr57z1tc7rq" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -143,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6q6grpb00043gr530ayh53d" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6srf0xv00020sr5dct63ljd" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -184,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6q6grpb00033gr5aiaue2hk" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6srf0xx00030sr582ac03nx" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -227,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6q6grpi000d3gr5ev1lchm7" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6srf0y5000e0sr51v9sf7ga" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -268,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6q6grph000c3gr5hatt0524" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6srf0y2000a0sr5fr00ds77" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -309,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6q6grph000b3gr5byezdyg1" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6srf0y3000b0sr56t0dgzt6" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -349,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6q6grpg000a3gr532y9fz7z" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6srf0y000080sr5cou34ydi" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -389,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6q6grpf00093gr5b1900at3" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6srf0y4000c0sr523qba4gs" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -429,47 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6q6grpe00083gr5gcytf97s" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-example-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/16/example-3/" class="article-date">
-  <time class="dt-published" datetime="2025-01-16T03:26:55.000Z" itemprop="datePublished">2025-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/16/example-3/">在snap中调用mediapipe的案例</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>‌MediaPipe‌是由Google Research开发的一款开源框架，旨在帮助开发者轻松地构建、测试和部署复杂的多模态、多任务的机器学习模型，特别擅长于实时处理和分析音频、视频等多媒体数据‌<br>应用场景和示例<br>1‌姿态估计‌：MediaPipe可以实时检测和追踪人体的关键点（如肩膀、肘部、膝盖等），并估计人体的姿态，适用于体育训练、动作捕捉、增强现实等应用‌。<br>2‌手部追踪‌：能够检测和追踪手部的关键点，提供手势识别和手部动作分析的能力，适用于手势控制、虚拟现实、手写输入等应用‌。<br>3‌人脸检测‌：用于识别图像或视频中的人脸，适用于安全监控、人脸识别登录等场景‌。<br>4‌物体检测‌：可以识别和检测图像或视频中的物体，适用于各种视觉相关的应用‌。<br>5‌运动追踪‌：提供运动追踪功能，适用于需要分析人体或动物运动的应用‌。</p>
-<p>mediapipe 提供了 JavaScript API, 可以通过 JavaScript function 将 mediapipe 引入到 Snap! 中。<br>import() 可以将 ECMAScript 模块异步动态加载到非模块环境中。<br>在<a target="_blank" rel="noopener" href="https://snap.codelab.club/">https://snap.codelab.club/</a>可以导入 ,相关的mediapipe 库（人脸检测、手部检测、姿态检测）。在snap中使用mediapipe库，不需要修改底层代码，只需要用拖拽程序块的方式，就能体验，非常适合中小学生使用。早期尝试过在anaconda终使用mediapipe进行教学，后来又把他移植到xedu环境终，发现学生学习效果都不能达到自己要求，所以在snap中尝试一下。<br>种瓜提供的<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://wwj718.github.io/post/img/mediapipe-Gesture-Recognition-cn.xml&enableJS">国内体验案例</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/16/example-3/" data-id="cm6q6grpd00073gr519rf676r" data-title="在snap中调用mediapipe的案例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6srf0y100090sr524sycxsg" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -517,6 +518,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
           </li>
         
@@ -530,10 +535,6 @@
         
           <li>
             <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/25/example-8gzj/">用snap中实现感知机（perceptron）</a>
           </li>
         
       </ul>

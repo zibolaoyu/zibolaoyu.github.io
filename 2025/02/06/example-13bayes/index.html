@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>文本的朴素贝叶斯分类(naves bayes) | 淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="该方法会在事先创建了适合此类分类的训练数据的情况下，将文本分配到一个类别中。在最简单的情况下，它只区分两个类别：文本属于一个类别或不属于该类别。对于这两种情况都会计算一个概率。标准示例是垃圾邮件检测：系统接收一份已知的垃圾邮件列表和第二份“真实”邮件列表。根据这些，按照托马斯•贝叶斯的方法为所有单词计算条件概率，而不考虑它们在文本中的位置（因此称为“朴素分类”），然后根据公式计算出被分析文本的总体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本的朴素贝叶斯分类(naves bayes)">
+<meta property="og:url" content="http://example.com/2025/02/06/example-13bayes/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:description" content="该方法会在事先创建了适合此类分类的训练数据的情况下，将文本分配到一个类别中。在最简单的情况下，它只区分两个类别：文本属于一个类别或不属于该类别。对于这两种情况都会计算一个概率。标准示例是垃圾邮件检测：系统接收一份已知的垃圾邮件列表和第二份“真实”邮件列表。根据这些，按照托马斯•贝叶斯的方法为所有单词计算条件概率，而不考虑它们在文本中的位置（因此称为“朴素分类”），然后根据公式计算出被分析文本的总体">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/130bayes/1.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/2.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/3.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/4.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/5.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/6.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/7.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/8.jpeg">
+<meta property="og:image" content="http://example.com/image/130bayes/9.jpeg">
+<meta property="article:published_time" content="2025-02-06T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-02-06T03:09:50.338Z">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/130bayes/1.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-example-13bayes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/06/example-13bayes/" class="article-date">
+  <time class="dt-published" datetime="2025-02-06T03:26:55.000Z" itemprop="datePublished">2025-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      文本的朴素贝叶斯分类(naves bayes)
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>该方法会在事先创建了适合此类分类的训练数据的情况下，将文本分配到一个类别中。在最简单的情况下，它只区分两个类别：文本属于一个类别或不属于该类别。对于这两种情况都会计算一个概率。标准示例是垃圾邮件检测：系统接收一份已知的垃圾邮件列表和第二份“真实”邮件列表。根据这些，按照托马斯•贝叶斯的方法为所有单词计算条件概率，而不考虑它们在文本中的位置（因此称为“朴素分类”），然后根据公式计算出被分析文本的总体概率。</p>
+<p>我们为“垃圾邮件”和“非垃圾邮件”两个类别实现了这一程序，即我们估算文本是否属于垃圾邮件。我们以垃圾邮件检测为例，因为它非常简单。我们将文本存储在两个变量中。分类所需的训练数据必须从这些变量中生成。这在“准备数据……”模块中完成。<br><img src="/./image/130bayes/1.jpeg" alt="如图1所示"><br>首先，我们计算两个类别——垃圾邮件和非垃圾邮件的概率，这两个类别在模块中分别被列为类别1和类别2<br>如图所示为代码：<br><img src="/./image/130bayes/2.jpeg" alt="如图2所示"><br>然后，我们将两个类别的文本分别合并成一个文本，因为从现在开始，只有单词的数量才是重要的。我们将这些文本简化为仅由大写字母组成的纯单词序列，因为它们在文本中的位置，以及标点符号，都不再重要<br><img src="/./image/130bayes/3.jpeg" alt="如图3所示"><br>让我们来统计这两段文本的单词数量，并在过程中删除空白条目<br><img src="/./image/130bayes/4.jpeg" alt="如图4所示"><br>由于在统计单词时已经对它们进行了排序，因此第一列包含了两个类别的词汇表。从这里，我们整理出总的词汇表，并记住它们的长度，因为我们在估计条件概率时需要用到这些长度。<br><img src="/./image/130bayes/5.jpeg" alt="如图5所示"><br>两个类别的条件概率是通过它们的相对频率来计算的。因为那些在待分类文本的词汇表中未出现的单词会导致概率为0，从而使得整体结果也为0，因此我们还使用了拉普拉斯平滑来避免出现零值：我们在分子中加1，在分母中加上总词汇表的长度。这样，缺失的单词就会被赋予概率1&#x2F;（总词汇表长度 + 类别词汇表长度）。<br><img src="/./image/130bayes/6.jpeg" alt="如图6所示"><br>最后，用于分类所需的数据被整理成一个列表，并作为结果进行传递。<br><img src="/./image/130bayes/7.jpeg" alt="如图7所示"><br>使用“朴素贝叶斯分类……”模块，我们现在可以尝试识别垃圾邮件了。我们将新的文本重新拆分成单词列表，并利用准备好的训练数据来实现指定的公式。最终结果包括垃圾邮件（spam）和非垃圾邮件（ham）的概率。<br><img src="/./image/130bayes/8.jpeg" alt="如图8所示"><br>现在，让我们将文本“We want to pay out your winnings! Please enter your account details.”与准备好的训练数据一起输入到模块中，然后我们得到垃圾邮件的概率为93%。<br><img src="/./image/130bayes/9.jpeg" alt="如图9所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/13Bayes/Bayes.xml">example-13</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/06/example-13bayes/" data-id="cm6srf0xy00050sr500bd25gm" data-title="文本的朴素贝叶斯分类(naves bayes)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/02/04/example-12KNN/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用KNN算法进行赫罗图分类</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
