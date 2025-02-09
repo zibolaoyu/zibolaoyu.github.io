@@ -69,6 +69,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-example-14Dtree" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/09/example-14Dtree/" class="article-date">
+  <time class="dt-published" datetime="2025-02-09T03:26:55.000Z" itemprop="datePublished">2025-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>该决策树重现了“专家”做出决策的过程。一个简单的例子是儿童游戏“猜动物”，游戏过程中会依次提问（“它有四条腿吗？”“它有毛吗？”“它是复活节兔子吗？”……），这些问题会逐渐排除越来越多的动物，直到剩下一种动物或者出现争议。在我们的情况中，专家知识以分类数据的形式呈现，分类结果应位于最后一列——为了简化，可以是一个二元决策。从这些数据集中构建决策树，其他尚未“标记”的数据可以通过这棵树来进行分类。构建这种树的一种方法是ID3方法（Iterative Dichotomiser 3，迭代二分法3）。该方法通过计算各个属性的熵来创建宽树，这种树可以快速遍历</p>
+<p>决策树由从根节点开始的节点和边组成。通过边逐层连接的节点要么是内部节点，从这些节点还会延伸出更多的边，要么是叶节点，叶节点标志着一个分支的结束。在构建决策树时，必须决定以何种顺序使用属性，以确保在某个特定点上获得最大的信息增益。通常，信息增益是通过熵来计算的，熵可以反映系统的“无序程度”。<br>为了构建和查询决策树，SciSnap! 在数据工具中有三个模块。通过一个模块来确定列表的熵。<br><img src="/./image/140Dtree/1.jpg" alt="如图1所示"><br>通过另一个模块构建树<br><img src="/./image/140Dtree/2.jpg" alt="如图2所示"><br>而树则通过第三个模块进行查询。<br><img src="/./image/140Dtree/3.jpg" alt="如图3所示"></p>
+<p>以一个例子为例，让我们探索在你已经接触过的纽约市Citi Bike数据中是否存在隐藏在我们未经训练的眼睛之外的“秘密”关系。例如，有可能通过借用数据推断出借车者的性别。让我们来尝试一下。<br>我们加载了包含577,703个元素的完整数据集，通过省略位置数据（纬度和经度）来对其进行“简化”，因为借车站点可以从其他数据中得出。我们像在其他例子中一样，将时间尺度缩短到一天中的小时，并删除未标记的数据（性别未知：“0”）。</p>
+<p><img src="/./image/140Dtree/4.jpg" alt="如图4所示"><br>为了训练，使用一个简化的数据集，其中包含1,000条借车记录，即用于构建决策树。为此，我们只需从完整数据集中随机抽取1,000条记录。<br><img src="/./image/140Dtree/5.jpg" alt="如图5所示"><br>然后从数据中创建了ID3树。这大约花费了2.5秒。<br><img src="/./image/140Dtree/6.jpg" alt="如图6所示"><br>之后，我们用训练数据集中随机选取的数据来测试这棵树。这应该可以完成任务。<br><img src="/./image/140Dtree/7.jpg" alt="如图7所示"></p>
+<p>现在我们使用完整的数据集，其中包含所有记录，经过筛选后仍剩下336,955条记录。也许这会展示出“人工智能”的惊人力量.<br><img src="/./image/140Dtree/8.jpg" alt="如图8所示"><br>好吧。如果仅凭猜测，我们可能会做得更好！要么是我们创建的人工智能，即决策树，根本没有任何神奇的预测能力，要么是我们使用的数据不适合这个问题，要么就是我们遇到了典型的过拟合问题，因为训练数据被完美识别，但其他数据几乎完全无法识别。去寻找原因吧！<br>至少我们学会了如何构建和使用决策树。对此我们应当心怀感激！</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/13Bayes/Bayes.xml">example-14</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/09/example-14Dtree/" data-id="cm6wx4qw20006rcr5c8xv8sfo" data-title="决策树的ID3方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-example-13bayes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/06/example-13bayes/" class="article-date">
@@ -98,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/06/example-13bayes/" data-id="cm6vf8dkp00067cr54i9196w3" data-title="文本的朴素贝叶斯分类(naves bayes)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/06/example-13bayes/" data-id="cm6wx4qw30007rcr59f42hwoz" data-title="文本的朴素贝叶斯分类(naves bayes)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -139,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/04/example-12KNN/" data-id="cm6vf8dkn00047cr56be65fzg" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/04/example-12KNN/" data-id="cm6wx4qw20005rcr5hgmz0xkf" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -184,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6vf8dko00057cr50zdxbnsl" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6wx4qw10004rcr52urg5hfr" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -225,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6vf8dkm00037cr56slgb6se" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6wx4qw00003rcr5cddj7voa" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -268,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6vf8dkx000e7cr50fbi7utj" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6wx4qw8000ercr5dydd9v03" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -309,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6vf8dkx000d7cr54anqdlil" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6wx4qw8000drcr5fwywf52i" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -350,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6vf8dkw000c7cr59ga32jg6" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6wx4qw7000crcr53hwz3iij" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -390,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6vf8dku000b7cr5a18t6a38" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6wx4qw6000brcr52tel0cbk" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -430,47 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6vf8dkt000a7cr5e5ibbo1g" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-example-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/17/example-4/" class="article-date">
-  <time class="dt-published" datetime="2025-01-17T03:26:55.000Z" itemprop="datePublished">2025-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/17/example-4/">在snap中调用mediapipe人脸检测的案例（4）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>首先通过添加库，添加人脸检测的库。<br><img src="/./image/mediapipe/1.png" alt="如图所示"><br>脸部识别的例子，是‌使用MediaPipe‌的脸部关键点坐标，根据这个坐标值把对应的角色安装到摄像头拍摄的人脸的不同部位，借此熟悉眼、嘴、鼻子等坐标位置。<br>通过这个例子可以开发一些针对人脸的装扮和交互的例子。<br><img src="/./image/mediapipe/2.png" alt="如图所示"></p>
-<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/mediapipe/face.xml">example-1</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/01/17/example-4/" data-id="cm6vf8dks00097cr57xligozp" data-title="在snap中调用mediapipe人脸检测的案例（4）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6wx4qw6000arcr535jsenrg" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -518,6 +522,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
           </li>
         
@@ -531,10 +539,6 @@
         
           <li>
             <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
           </li>
         
       </ul>
