@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>用snap训练一个神经网络（NNnet） | 淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="“深度”神经网络也是当前关于“人工智能”的研究方法之一，这些通常都有“全连接”的神经网络参与，“全连接”意味着一层中的所有神经元都与下一层的所有神经元相连。每个连接都被分配了一个权重，这个权重决定了它对连接的感知器的影响。让我们考虑一个由三层组成的网络，其输入为一张实际的2000万像素照片的像素，即2×10⁷像素。输入层由3×2×10⁷个数值组成，这些数值介于0到255之间（如果我们忽略透明度字节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用snap训练一个神经网络（NNnet）">
+<meta property="og:url" content="http://example.com/2025/01/27/example-9NNnet/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:description" content="“深度”神经网络也是当前关于“人工智能”的研究方法之一，这些通常都有“全连接”的神经网络参与，“全连接”意味着一层中的所有神经元都与下一层的所有神经元相连。每个连接都被分配了一个权重，这个权重决定了它对连接的感知器的影响。让我们考虑一个由三层组成的网络，其输入为一张实际的2000万像素照片的像素，即2×10⁷像素。输入层由3×2×10⁷个数值组成，这些数值介于0到255之间（如果我们忽略透明度字节">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/NNnet/1.png">
+<meta property="og:image" content="http://example.com/image/NNnet/2.png">
+<meta property="article:published_time" content="2025-01-27T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-01-31T07:15:27.883Z">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/NNnet/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-example-9NNnet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/27/example-9NNnet/" class="article-date">
+  <time class="dt-published" datetime="2025-01-27T03:26:55.000Z" itemprop="datePublished">2025-01-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      用snap训练一个神经网络（NNnet）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>“深度”神经网络也是当前关于“人工智能”的研究方法之一，这些通常都有“全连接”的神经网络参与，“全连接”意味着一层中的所有神经元都与下一层的所有神经元相连。每个连接都被分配了一个权重，这个权重决定了它对连接的感知器的影响。<br>让我们考虑一个由三层组成的网络，其输入为一张实际的2000万像素照片的像素，即2×10⁷像素。输入层由3×2×10⁷个数值组成，这些数值介于0到255之间（如果我们忽略透明度字节）。到下一层则有(6×10⁷)²&#x3D;3.6×10¹⁵个连接——接下来还有两次这样的连接。总共需要确定3×3.6×10¹⁵，即大约10¹⁶个权重——这是一项对于“普通”计算机来说完全不切实际的任务。因此，我们只能将自己限制在规模稍小的神经网络上。<br>训练感知器网络的一种方法是同时向它们呈现输入向量和期望的输出结果。网络随后会根据现有的、最初随机选择的权重计算出输出结果，并确定其与给定结果之间的差异。从结果的最后一层开始，网络随后会“反向传播”权重，使其输出结果“略微更好地”符合给定结果。这种过程被称为反向传播。你也应该在其他地方多了解一下这方面的内容。经过多次这样的修正后，训练有素的网络便形成了。“学习”意味着根据许多示例来调整参数（即权重）。借助这些参数，网络可以从输入向量中确定一个输出向量：它计算出一个函数值。我们的NeuralNetPad可以模拟并训练这种感知器网络<br>权重构成了一个总张量，包含 m 层，每层由 n×n 矩阵组成。因此，NeuralNetPad 应该掌握线性代数。唯一的新特性是 softmax 函数，它可以用于对输入向量进行缩放。<br>网络的尺寸设定和初始权重分配是在“添加新权重”模块中完成的。通过这个模块，我们可以创建一个任意大小的神经网络，并为其分配随机初始权重。在这个例子中，生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。</p>
+<p>如图所示为生成神经网络的代码：<br><img src="/./image/NNnet/1.png" alt="如图1所示"></p>
+<p>用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：<br><img src="/./image/NNnet/2.png" alt="如图2所示"></p>
+<p>由于展示大量数字可能会令人感到混乱，并且也难以提供有价值的信息，因此连接线（即边）会根据相关权重的值进行颜色编码：从代表较大正值的全绿色，到代表较小数值的黑色，再到代表负值的红色。由于最初随机生成的数字仅为正值，因此一个新的网络主要呈现绿色。它展示了使用指定的输入向量进行计算后得到的结果。<br>网络的顶点也像边一样进行了颜色编码。在底部，输入向量的元素以小矩形的形式显示。内部层形成了彩色的圆形，而最后一层则再次以矩形形式显示为输出层。计算方向从底部到顶部，由最右侧的箭头表示。由于你可以轻松地旋转精灵，因此方向当然也可以以不同的方式显示<br>通常你需要网络的最后一层或某一层内部的结果。这些可以通过“输出……”模块针对给定的输入进行计算得出。由于颜色编码并不一定能清晰地显示出最大或最小的元素，因此可以借助“……向量的……”模块来确定这些值。<br>网络的训练是通过“通过反向传播以指定的学习率训练神经网络……”模块来完成的。学习率在训练初期可以设置得稍大一些，然后逐渐减小。</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/NNnet/NNnet.xml">example-9</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6yhnugj000fmor5c072hwi5" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/31/example-10bzsb/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用snap实现一个交通标志识别的神经网络
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/25/example-8gzj/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用snap中实现感知机（perceptron）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

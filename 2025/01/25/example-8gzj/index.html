@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>用snap中实现感知机（perceptron） | 淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="感知机（Perceptron）是机器学习和神经网络领域中的一种基础模型，属于监督学习算法的一种。作为最简单的神经网络形式，感知机主要用于解决二分类问题，即在一个给定的输入空间内，通过训练找到一条决策边界（通常是一条直线或一个超平面），将空间中的点按照其类别（+1或-1）进行划分。感知机的基本概念可以追溯到上世纪50年代，由Frank Rosenblatt首次提出，其设计灵感来源于生物神经元的工作机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用snap中实现感知机（perceptron）">
+<meta property="og:url" content="http://example.com/2025/01/25/example-8gzj/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:description" content="感知机（Perceptron）是机器学习和神经网络领域中的一种基础模型，属于监督学习算法的一种。作为最简单的神经网络形式，感知机主要用于解决二分类问题，即在一个给定的输入空间内，通过训练找到一条决策边界（通常是一条直线或一个超平面），将空间中的点按照其类别（+1或-1）进行划分。感知机的基本概念可以追溯到上世纪50年代，由Frank Rosenblatt首次提出，其设计灵感来源于生物神经元的工作机">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image/gzj/1.png">
+<meta property="og:image" content="http://example.com/image/gzj/2.png">
+<meta property="article:published_time" content="2025-01-25T03:26:55.000Z">
+<meta property="article:modified_time" content="2025-01-25T00:31:14.955Z">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/gzj/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-example-8gzj" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/25/example-8gzj/" class="article-date">
+  <time class="dt-published" datetime="2025-01-25T03:26:55.000Z" itemprop="datePublished">2025-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      用snap中实现感知机（perceptron）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>感知机（Perceptron）是机器学习和神经网络领域中的一种基础模型，属于监督学习算法的一种。作为最简单的神经网络形式，感知机主要用于解决二分类问题，即在一个给定的输入空间内，通过训练找到一条决策边界（通常是一条直线或一个超平面），将空间中的点按照其类别（+1或-1）进行划分。感知机的基本概念可以追溯到上世纪50年代，由Frank Rosenblatt首次提出，其设计灵感来源于生物神经元的工作机制，旨在模拟人脑对信息的处理过程。<br>感知机的工作原理基于简单的线性加权和与阈值比较。在数学上，感知机可以表示为一个输入向量x与权重向量w的点积，加上一个偏置项b，然后通过激活函数（通常是符号函数）得到输出y。<br>感知机的训练过程主要依赖于其学习算法，即感知机算法。该算法的核心思想是通过迭代更新权重向量w和偏置项b，使得感知机对于训练集中的样本点能够做出正确的分类。<br>如图所示我们单击改变图中右下角的目标值，感知机通过学习改变权重，最后得到目标值：<br><img src="/./image/gzj/1.png" alt="如图1所示"></p>
+<p>用scisnap！提供的图表画板（graphpad）实现，实现感知机的关键代码如图所示：<br><img src="/./image/gzj/2.png" alt="如图2所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/gzj/gzj.xml">example-8</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6yhnugi000emor5d33d48my" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/27/example-9NNnet/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用snap训练一个神经网络（NNnet）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/23/example-7byjc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">在snap中实现图像边缘检测</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

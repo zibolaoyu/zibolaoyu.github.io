@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>淄博老于的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="淄博老于的博客">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="淄博老于的博客">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="zibolaoyu">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="淄博老于的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">淄博老于的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-example-14Dtree" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/09/example-14Dtree/" class="article-date">
+  <time class="dt-published" datetime="2025-02-09T03:26:55.000Z" itemprop="datePublished">2025-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>该决策树重现了“专家”做出决策的过程。一个简单的例子是儿童游戏“猜动物”，游戏过程中会依次提问（“它有四条腿吗？”“它有毛吗？”“它是复活节兔子吗？”……），这些问题会逐渐排除越来越多的动物，直到剩下一种动物或者出现争议。在我们的情况中，专家知识以分类数据的形式呈现，分类结果应位于最后一列——为了简化，可以是一个二元决策。从这些数据集中构建决策树，其他尚未“标记”的数据可以通过这棵树来进行分类。构建这种树的一种方法是ID3方法（Iterative Dichotomiser 3，迭代二分法3）。该方法通过计算各个属性的熵来创建宽树，这种树可以快速遍历</p>
+<p>决策树由从根节点开始的节点和边组成。通过边逐层连接的节点要么是内部节点，从这些节点还会延伸出更多的边，要么是叶节点，叶节点标志着一个分支的结束。在构建决策树时，必须决定以何种顺序使用属性，以确保在某个特定点上获得最大的信息增益。通常，信息增益是通过熵来计算的，熵可以反映系统的“无序程度”。<br>为了构建和查询决策树，SciSnap! 在数据工具中有三个模块。通过一个模块来确定列表的熵。<br><img src="/./image/140Dtree/1.jpg" alt="如图1所示"><br>通过另一个模块构建树<br><img src="/./image/140Dtree/2.jpg" alt="如图2所示"><br>而树则通过第三个模块进行查询。<br><img src="/./image/140Dtree/3.jpg" alt="如图3所示"></p>
+<p>以一个例子为例，让我们探索在你已经接触过的纽约市Citi Bike数据中是否存在隐藏在我们未经训练的眼睛之外的“秘密”关系。例如，有可能通过借用数据推断出借车者的性别。让我们来尝试一下。<br>我们加载了包含577,703个元素的完整数据集，通过省略位置数据（纬度和经度）来对其进行“简化”，因为借车站点可以从其他数据中得出。我们像在其他例子中一样，将时间尺度缩短到一天中的小时，并删除未标记的数据（性别未知：“0”）。</p>
+<p><img src="/./image/140Dtree/4.jpg" alt="如图4所示"><br>为了训练，使用一个简化的数据集，其中包含1,000条借车记录，即用于构建决策树。为此，我们只需从完整数据集中随机抽取1,000条记录。<br><img src="/./image/140Dtree/5.jpg" alt="如图5所示"><br>然后从数据中创建了ID3树。这大约花费了2.5秒。<br><img src="/./image/140Dtree/6.jpg" alt="如图6所示"><br>之后，我们用训练数据集中随机选取的数据来测试这棵树。这应该可以完成任务。<br><img src="/./image/140Dtree/7.jpg" alt="如图7所示"></p>
+<p>现在我们使用完整的数据集，其中包含所有记录，经过筛选后仍剩下336,955条记录。也许这会展示出“人工智能”的惊人力量.<br><img src="/./image/140Dtree/8.jpg" alt="如图8所示"><br>好吧。如果仅凭猜测，我们可能会做得更好！要么是我们创建的人工智能，即决策树，根本没有任何神奇的预测能力，要么是我们使用的数据不适合这个问题，要么就是我们遇到了典型的过拟合问题，因为训练数据被完美识别，但其他数据几乎完全无法识别。去寻找原因吧！<br>至少我们学会了如何构建和使用决策树。对此我们应当心怀感激！</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/14Dtree/Dtree.xml">example-14</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/09/example-14Dtree/" data-id="cm6yhnugd0007mor57xoyc9h6" data-title="决策树的ID3方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-13bayes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/06/example-13bayes/" class="article-date">
+  <time class="dt-published" datetime="2025-02-06T03:26:55.000Z" itemprop="datePublished">2025-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>该方法会在事先创建了适合此类分类的训练数据的情况下，将文本分配到一个类别中。在最简单的情况下，它只区分两个类别：文本属于一个类别或不属于该类别。对于这两种情况都会计算一个概率。标准示例是垃圾邮件检测：系统接收一份已知的垃圾邮件列表和第二份“真实”邮件列表。根据这些，按照托马斯•贝叶斯的方法为所有单词计算条件概率，而不考虑它们在文本中的位置（因此称为“朴素分类”），然后根据公式计算出被分析文本的总体概率。</p>
+<p>我们为“垃圾邮件”和“非垃圾邮件”两个类别实现了这一程序，即我们估算文本是否属于垃圾邮件。我们以垃圾邮件检测为例，因为它非常简单。我们将文本存储在两个变量中。分类所需的训练数据必须从这些变量中生成。这在“准备数据……”模块中完成。<br><img src="/./image/130bayes/1.jpg" alt="如图1所示"><br>首先，我们计算两个类别——垃圾邮件和非垃圾邮件的概率，这两个类别在模块中分别被列为类别1和类别2<br>如图所示为代码：<br><img src="/./image/130bayes/2.jpg" alt="如图2所示"><br>然后，我们将两个类别的文本分别合并成一个文本，因为从现在开始，只有单词的数量才是重要的。我们将这些文本简化为仅由大写字母组成的纯单词序列，因为它们在文本中的位置，以及标点符号，都不再重要<br><img src="/./image/130bayes/3.jpg" alt="如图3所示"><br>让我们来统计这两段文本的单词数量，并在过程中删除空白条目<br><img src="/./image/130bayes/4.jpg" alt="如图4所示"><br>由于在统计单词时已经对它们进行了排序，因此第一列包含了两个类别的词汇表。从这里，我们整理出总的词汇表，并记住它们的长度，因为我们在估计条件概率时需要用到这些长度。<br><img src="/./image/130bayes/5.jpg" alt="如图5所示"><br>两个类别的条件概率是通过它们的相对频率来计算的。因为那些在待分类文本的词汇表中未出现的单词会导致概率为0，从而使得整体结果也为0，因此我们还使用了拉普拉斯平滑来避免出现零值：我们在分子中加1，在分母中加上总词汇表的长度。这样，缺失的单词就会被赋予概率1&#x2F;（总词汇表长度 + 类别词汇表长度）。<br><img src="/./image/130bayes/6.jpg" alt="如图6所示"><br>最后，用于分类所需的数据被整理成一个列表，并作为结果进行传递。<br><img src="/./image/130bayes/7.jpg" alt="如图7所示"><br>使用“朴素贝叶斯分类……”模块，我们现在可以尝试识别垃圾邮件了。我们将新的文本重新拆分成单词列表，并利用准备好的训练数据来实现指定的公式。最终结果包括垃圾邮件（spam）和非垃圾邮件（ham）的概率。<br><img src="/./image/130bayes/8.jpg" alt="如图8所示"><br>现在，让我们将文本“We want to pay out your winnings! Please enter your account details.”与准备好的训练数据一起输入到模块中，然后我们得到垃圾邮件的概率为93%。<br><img src="/./image/130bayes/9.jpg" alt="如图9所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/13Bayes/Bayes.xml">example-13</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/06/example-13bayes/" data-id="cm6yhnugd0006mor5fetechbn" data-title="文本的朴素贝叶斯分类(naves bayes)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-12KNN" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/04/example-12KNN/" class="article-date">
+  <time class="dt-published" datetime="2025-02-04T03:26:55.000Z" itemprop="datePublished">2025-02-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在赫罗图（详见维基百科）中，恒星的光度被绘制在其恒星分类之上。结果呈现出一条从左上到右下的线，即“主序带”。在这条线上，像太阳这样的恒星占据主导地位。在主序带的右上方，我们可以找到红巨星，而在主序带的左下方则是白矮星。<br><img src="/./image/120KNN/1.png" alt="如图1所示"><br>我们希望使用最近邻（kNN）方法在该图中对新恒星进行分类：我们生成一组训练数据，其中包含恒星的坐标（在图中简单地表示为图像坐标）及其类型。如果我们要对一颗新恒星进行分类，我们会确定它在图中的位置，并找到最近的k个（例如k&#x3D;5）邻居。然后，我们确定这个列表中出现频率最高的恒星类型，并将其分配给这颗新恒星。</p>
+<p>首先，我们需要一张赫罗图（[HR]）的图像。我们将这张图像导入到Snap!中，作为图像画布（ImagePad）的一个造型，并从中生成所需的训练数据。由于我们将在图像上进行绘制，因此我们使用赫罗图的一个副本进行操作，以免改变原始图像。<br>我们通过指定一种恒星类型，然后在图表上点击一些与该类型对应的点来获取训练数据。之后，我们可以通过点击并标记这些新恒星来对它们进行分类。<br>如图所示为代码：<br><img src="/./image/120KNN/2.png" alt="如图2所示"><br>我们为显示设置了一些属性，并在恒星的位置绘制了一个圆圈。然后，我们确定了五个最近的邻居及其类型的出现次数。接下来，我们删除了标题，并将列表按降序排序。新恒星的类型是列表中第一行的第一个元素。我们将这个类型写在恒星旁边。<br><img src="/./image/120KNN/3.png" alt="如图3所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/12KNN/KNN.xml">example-12</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/04/example-12KNN/" data-id="cm6yhnugc0005mor5a43v85e1" data-title="用KNN算法进行赫罗图分类" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-11gqnh" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/01/example-11gqnh/" class="article-date">
+  <time class="dt-published" datetime="2025-02-01T03:26:55.000Z" itemprop="datePublished">2025-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>机器学习使用训练数据来调整函数的参数，以便能够很好地预测其他值（如果一切顺利的话）。因此，你构建了一个预测工具，一种数据的“望远镜”。<br>人们可能会认为，一个函数包含的可定制参数越多就越好。但事实并非如此。一方面，更多的参数需要更多的训练数据和训练运行次数，即更长的学习时间；另一方面，一个“不合适的”参数数量也可能阻碍“良好”的解决方案。我们分别举一个例子来说明这两个方面。<br>关于第一点：在用于交通标志识别的神经网络（最后一个例子）中，我们使用一层网络就取得了非常好的结果。如果我们增加网络层数，同时保持训练运行次数不变，那么识别率会急剧下降。<br>关于第二点：如果函数能够很好地复现训练数据，这并不意味着它对其他数据也能做到这一点。这在很大程度上取决于生成的函数类型。我们以多项式插值为例进行说明。<br>任务是：通过训练数据来调整多项式的系数，以便尽可能好地预测其他数据。<br>为了做到这一点，我们需要生成用于计算插值多项式的数据。这次，这项任务是由Hilberto完成的。他生成的数据围绕抛物线 0.2*x2−3 散布。<br>我们在Hilberto旁边配置了一个名为PlotPad的第二个精灵，并在上面绘制数据。<br>我们选择PlotPad作为“工作主力”。如有必要，我们会从其他库中导入所需的功能。<br>如图所示为PlotPad的代码：<br><img src="/./image/110gqnh/1.png" alt="如图1所示"></p>
+<p>生成数据展示。<br><img src="/./image/110gqnh/2.png" alt="如图1所示"></p>
+<p>我们首先尝试使用线性回归进行拟合。<br><img src="/./image/110gqnh/3.png" alt="如图3所示"><br>这看起来确实相当不错，但它在两侧并没有很好地拟合。</p>
+<p>因此，我们尝试使用多项式插值。首先，我们从训练数据中随机选择三对数据，确定插值多项式并将其绘制出来。因为我们想进一步进行实验，所以我们将解决方案推广到通过n个点的多项式。<br><img src="/./image/110gqnh/4.png" alt="如图4所示"></p>
+<p>结果取决于捕捉到哪些点。这里有一个不好的结果和一个相当好的结果。<br><img src="/./image/110gqnh/5.png" alt="如图5所示"></p>
+<p>现在我们变得大胆起来了！我们不再选择三个点，而是选择了五个点。毕竟，我们想要做好这件事！在中间部分，效果还算可以，但随后——哎呀！如图所示：<br><img src="/./image/110gqnh/6.png" alt="如图6所示"></p>
+<p>也许我们只需要使用更多的点。让我们试试10个点。多项式确实经过了更多的点，但它们在边缘“起飞”了。<br><img src="/./image/110gqnh/7.png" alt="如图7所示"><br>好吧，那就用所有的点吧！<br>你可以看到，随着多项式次数的增加，图上直接有更多训练数据的点，但在这些点之间，多项式的剧烈振荡只会“预测”出毫无意义的值。<br><img src="/./image/110gqnh/8.png" alt="如图8所示"><br>因此，我们所学到的质量在很大程度上取决于我们如何处理偏差。我们必须决定哪些细节上的不准确是可以容忍的，以便使整体预测变得可靠。如果多项式的次数太小，我们称之为欠拟合；如果次数太高，则称为过拟合。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/11gqnh/gqnh.xml">example-11</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/02/01/example-11gqnh/" data-id="cm6yhnug90002mor55lf22983" data-title="模型训练中的过拟合和欠拟合" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-10bzsb" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/31/example-10bzsb/" class="article-date">
+  <time class="dt-published" datetime="2025-01-31T03:26:55.000Z" itemprop="datePublished">2025-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>我们希望训练一个神经网络（NN）来识别12种不同的交通标志。为此，我们在网络中寻找这些交通标志的图像，并将其缩小到100×100像素的格式。现在这些图像可以在屏幕上很好地显示，但10000个像素当然作为神经网络的输入来说是太多了。<br>为了将数据量控制在可接受的范围内，我们通过均值池化（mean-pooling）将像素缩减为2×2的格式，即我们对图像的每个四分之一区域中的彩色像素取平均值。因此，交通标志图像的30,000个像素值被缩减为12个值。<br>首先，Gundolf给神经网络（NN）精灵换了一个新造型。然后，他在NN中为一个新的网络（这里是一个12×1的网络）创建了权重。接着，他用一个（目前还毫无意义的）输入让网络进行绘图。之后，他将NN发送到屏幕上方中心的一个精心选择的位置，并对下方的交通标志做同样的操作。最后，他将一些变量设置为0。我们稍后会用到它们。<br>Gundolf 首先需要通过池化操作来减少图像值的数量。为了应用这一操作，他必须导入图像数据。然后，他可以对这些数据进行转换，删除列表前面指定的缩减后图像的维度，并返回结果。我们将所有这些操作总结在一个新的模块“当前交通标志造型的池化”中<br>如图所示为平均值池化操作的代码：<br><img src="/./image/10bzsb/1.png" alt="如图1所示"><br>Gundolf将降采样图像的颜色值组装成一个输入向量。这些值通过数据工具中的softmax函数进行建模，以排除不利的输入值<br><img src="/./image/10bzsb/2.png" alt="如图2所示"><br>相应地，训练数据中的训练向量可以通过神经网络（NN）搜索到的输出值来确定。在我们的情况下，所有值都应该是0，除了与交通标志服装编号相对应的那个值。<br><img src="/./image/10bzsb/3.png" alt="如图3所示"><br>神经网络（NN）引入了两种新方法：从……学习和用……测试。在学习过程中，会确定神经网络输出值最大的位置，并将其与交通标志的当前服装编号进行比较。如果这些值不匹配，则继续学习。<br><img src="/./image/10bzsb/4.png" alt="如图4所示"></p>
+<p>一个训练操作包括确定一个随机的服装编号以及相应的服装更换。然后，神经网络（NN）的学习过程会用新的输入数据和目标数据开始。训练的次数会被计数。如图所示：<br><img src="/./image/10bzsb/5.png" alt="如图5所示"></p>
+<p>在测试中，采用类似的程序：更换服装并检查神经网络是否计算出正确的服装编号。如果情况如此，那么所有人都会感到满意。最终会确定正确尝试的百分比。<br><img src="/./image/10bzsb/6.png" alt="如图6所示"><br>经过几百次训练运行，先是使用较高的学习率，然后再次使用较低的学习率进行微调，我们实现了高达100%的识别率。<br>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/10bzsb/bzsb.xml">example-10</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/31/example-10bzsb/" data-id="cm6yhnug60001mor574e443yl" data-title="用snap实现一个交通标志识别的神经网络" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-9NNnet" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/27/example-9NNnet/" class="article-date">
+  <time class="dt-published" datetime="2025-01-27T03:26:55.000Z" itemprop="datePublished">2025-01-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/27/example-9NNnet/">用snap训练一个神经网络（NNnet）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>“深度”神经网络也是当前关于“人工智能”的研究方法之一，这些通常都有“全连接”的神经网络参与，“全连接”意味着一层中的所有神经元都与下一层的所有神经元相连。每个连接都被分配了一个权重，这个权重决定了它对连接的感知器的影响。<br>让我们考虑一个由三层组成的网络，其输入为一张实际的2000万像素照片的像素，即2×10⁷像素。输入层由3×2×10⁷个数值组成，这些数值介于0到255之间（如果我们忽略透明度字节）。到下一层则有(6×10⁷)²&#x3D;3.6×10¹⁵个连接——接下来还有两次这样的连接。总共需要确定3×3.6×10¹⁵，即大约10¹⁶个权重——这是一项对于“普通”计算机来说完全不切实际的任务。因此，我们只能将自己限制在规模稍小的神经网络上。<br>训练感知器网络的一种方法是同时向它们呈现输入向量和期望的输出结果。网络随后会根据现有的、最初随机选择的权重计算出输出结果，并确定其与给定结果之间的差异。从结果的最后一层开始，网络随后会“反向传播”权重，使其输出结果“略微更好地”符合给定结果。这种过程被称为反向传播。你也应该在其他地方多了解一下这方面的内容。经过多次这样的修正后，训练有素的网络便形成了。“学习”意味着根据许多示例来调整参数（即权重）。借助这些参数，网络可以从输入向量中确定一个输出向量：它计算出一个函数值。我们的NeuralNetPad可以模拟并训练这种感知器网络<br>权重构成了一个总张量，包含 m 层，每层由 n×n 矩阵组成。因此，NeuralNetPad 应该掌握线性代数。唯一的新特性是 softmax 函数，它可以用于对输入向量进行缩放。<br>网络的尺寸设定和初始权重分配是在“添加新权重”模块中完成的。通过这个模块，我们可以创建一个任意大小的神经网络，并为其分配随机初始权重。在这个例子中，生成了一个宽度为4且包含两层（加上输入层）的神经网络，并对其进行训练，使其在输入数字1到4的向量时，输出结果在左侧为1，在右侧为-1，中间为零。需要注意的是，输出值并非要求精确的1和-1，而是要求左侧为最大值，右侧为最小值。</p>
+<p>如图所示为生成神经网络的代码：<br><img src="/./image/NNnet/1.png" alt="如图1所示"></p>
+<p>用scisnap！提供的神经网络画板（NNpad for neural networks）实现，实现4个输入节点，2层的神经网络，如图所示：<br><img src="/./image/NNnet/2.png" alt="如图2所示"></p>
+<p>由于展示大量数字可能会令人感到混乱，并且也难以提供有价值的信息，因此连接线（即边）会根据相关权重的值进行颜色编码：从代表较大正值的全绿色，到代表较小数值的黑色，再到代表负值的红色。由于最初随机生成的数字仅为正值，因此一个新的网络主要呈现绿色。它展示了使用指定的输入向量进行计算后得到的结果。<br>网络的顶点也像边一样进行了颜色编码。在底部，输入向量的元素以小矩形的形式显示。内部层形成了彩色的圆形，而最后一层则再次以矩形形式显示为输出层。计算方向从底部到顶部，由最右侧的箭头表示。由于你可以轻松地旋转精灵，因此方向当然也可以以不同的方式显示<br>通常你需要网络的最后一层或某一层内部的结果。这些可以通过“输出……”模块针对给定的输入进行计算得出。由于颜色编码并不一定能清晰地显示出最大或最小的元素，因此可以借助“……向量的……”模块来确定这些值。<br>网络的训练是通过“通过反向传播以指定的学习率训练神经网络……”模块来完成的。学习率在训练初期可以设置得稍大一些，然后逐渐减小。</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/NNnet/NNnet.xml">example-9</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/27/example-9NNnet/" data-id="cm6yhnugj000fmor5c072hwi5" data-title="用snap训练一个神经网络（NNnet）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-8gzj" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/25/example-8gzj/" class="article-date">
+  <time class="dt-published" datetime="2025-01-25T03:26:55.000Z" itemprop="datePublished">2025-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/25/example-8gzj/">用snap中实现感知机（perceptron）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>感知机（Perceptron）是机器学习和神经网络领域中的一种基础模型，属于监督学习算法的一种。作为最简单的神经网络形式，感知机主要用于解决二分类问题，即在一个给定的输入空间内，通过训练找到一条决策边界（通常是一条直线或一个超平面），将空间中的点按照其类别（+1或-1）进行划分。感知机的基本概念可以追溯到上世纪50年代，由Frank Rosenblatt首次提出，其设计灵感来源于生物神经元的工作机制，旨在模拟人脑对信息的处理过程。<br>感知机的工作原理基于简单的线性加权和与阈值比较。在数学上，感知机可以表示为一个输入向量x与权重向量w的点积，加上一个偏置项b，然后通过激活函数（通常是符号函数）得到输出y。<br>感知机的训练过程主要依赖于其学习算法，即感知机算法。该算法的核心思想是通过迭代更新权重向量w和偏置项b，使得感知机对于训练集中的样本点能够做出正确的分类。<br>如图所示我们单击改变图中右下角的目标值，感知机通过学习改变权重，最后得到目标值：<br><img src="/./image/gzj/1.png" alt="如图1所示"></p>
+<p>用scisnap！提供的图表画板（graphpad）实现，实现感知机的关键代码如图所示：<br><img src="/./image/gzj/2.png" alt="如图2所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/gzj/gzj.xml">example-8</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/25/example-8gzj/" data-id="cm6yhnugi000emor5d33d48my" data-title="用snap中实现感知机（perceptron）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-7byjc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/23/example-7byjc/" class="article-date">
+  <time class="dt-published" datetime="2025-01-23T03:26:55.000Z" itemprop="datePublished">2025-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/23/example-7byjc/">在snap中实现图像边缘检测</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一幅图像包括很多信息，人类对图像的理解很大程度上依赖于图像中比较关键的点和边缘信息，例如人类可以不依赖图像细节，从简笔画中识别很多物体，图像边缘是一个对图像的抽象表达，在理想情况下图像边缘不会随着光照、颜色等因素变化。<br>因此边缘检测是一个对图片更加精简的表达方式，有着广泛的应用，例如工业测量中经常需要先检测出物体的边缘，再对物体大小进行估计，边缘检测也是诸多其他视觉任务的第一步。<br>本例中利用卷积核学习如何检测图像边缘。<br>卷积运算就是计算机认识图像的一种重要的数学计算，LeNet-5模型中卷积层中进行的主要就是卷积运算，可以把卷积核简单的类比为一个过滤器，拿这个过滤器在要检测的图像上滑一遍，图像中长的和卷积核像的特征就被记录了下来，用数学语言描述就是图像中模式和卷积核比较接近，卷积运算的结果值比较大，所以可以使用卷积运算对图片进行特征提取。如图所示我们用两个卷积核就可以把图像竖直边缘和水平边缘提取出来：<br><img src="/./image/byjc/1.png" alt="如图1所示"><br>本例中用的是拉普拉斯算子（卷积核）如下所示<br><img src="/./image/byjc/2.png" alt="如图2所示"><br>改变例子中造型里的角色为juxing、yuanxing,运行其中的边缘检测代码，看能否检测出矩形圆形边框。咱们用到的3*3卷积核就是横着3个数、竖着3个数组成的一个数据组，高中数学你会学到，这样的数据组我们称为矩阵。把提取水平边缘特征和垂直边缘特征卷积核和我们读入的图片做卷积运算，就能把边框特征提取出来。</p>
+<p>用snap！提供的卷积运算，实现边缘检测的代码如图所示：<br><img src="/./image/byjc/3.png" alt="如图3所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/byjc/byjc.xml">example-7</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/23/example-7byjc/" data-id="cm6yhnugi000dmor5hzlz42n2" data-title="在snap中实现图像边缘检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-6xxhg" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/21/example-6xxhg/" class="article-date">
+  <time class="dt-published" datetime="2025-01-21T03:26:55.000Z" itemprop="datePublished">2025-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/21/example-6xxhg/">在snap中实现一元线性回归（进行图书价格预测）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>首先收集一些图书价格和图书页数的数据，如表所示。<br><img src="/./image/jqxx/1.png" alt="如图1所示"><br>从这些数据出发建立模型，找出图书价格与图书页数的关系，然后，如果我们有一本书知道其页数，根据得出的关系就可以预测出这本书的价格。<br>这个例子我们用到一个scisnap!v3的库如图所示：<br><img src="/./image/jqxx/2.png" alt="如图2所示"><br>要运行scisnap!v3,需要用到JavaScript扩展，要在设置中勾选该项，相关设置如图：<br><img src="/./image/jqxx/3.png" alt="如图3所示"><br>将表中的数据绘制成散点图，其中横轴表示图书页数，纵轴表示图书价格，<br><img src="/./image/jqxx/4.png" alt="如图4所示"><br>从图中可以看出，这些点大致分布在一条直线附近，因此称这两个量之间具有线性关系，这条直线也被称之为回归直线，如下图所示：<br><img src="/./image/jqxx/5.png" alt="如图5所示"><br>如果能求出这条直线的方程，就可以了解图书价格与图书页数的大致关系，也就可以根据页数大致预测图书价格</p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/jqxx/tushujiageyuce.xml">example-6</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/21/example-6xxhg/" data-id="cm6yhnugh000cmor5hd3vb87y" data-title="在snap中实现一元线性回归（进行图书价格预测）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-example-5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/18/example-5/" class="article-date">
+  <time class="dt-published" datetime="2025-01-18T03:26:55.000Z" itemprop="datePublished">2025-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/18/example-5/">在snap中调用mediapipe手部检测的案例（5）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>首先通过添加库，添加手部检测的库。<br><img src="/./image/mediapipe/21.png" alt="如图1所示"><br>手部识别的例子，是‌使用MediaPipe‌的手部部关键点坐标，根据这个坐标值把对应的21个关键点用小红点标注出来，用这些点显示出一只完整手的关键点。然后取食指指尖和拇指指尖两个关键点的x坐标和y坐标的插值，如果插值小于20，则点亮microbit的指示灯。<br>通过这个例子可以开发一些针对人手交互的例子。代码如下：<br><img src="/./image/mediapipe/22.png" alt="如图2所示"><br>本例还通过snap的microblock库和控制microbit实现对硬件灯的控制。相关代码如下图：<br><img src="/./image/mediapipe/23.png" alt="如图3所示"><br>在microblock中对microbit设置相关代码如下图所示：<br><img src="/./image/mediapipe/24.png" alt="如图4所示"></p>
+<p>演示案例:<br><a target="_blank" rel="noopener" href="https://snap.codelab.club/snap.html#open:https://zibolaoyu.github.io/post/mediapipe/hand.xml">example-5</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/18/example-5/" data-id="cm6yhnugh000bmor535b4f863" data-title="在snap中调用mediapipe手部检测的案例（5）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/09/example-14Dtree/">决策树的ID3方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/06/example-13bayes/">文本的朴素贝叶斯分类(naves bayes)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/04/example-12KNN/">用KNN算法进行赫罗图分类</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/01/example-11gqnh/">模型训练中的过拟合和欠拟合</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/31/example-10bzsb/">用snap实现一个交通标志识别的神经网络</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 zibolaoyu<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
